@@ -22,6 +22,8 @@ import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Service
@@ -64,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
        // queryBuilder.withQuery(QueryBuilders.termQuery("price",4199));
        // queryBuilder.withQuery(QueryBuilders.termQuery(key,value));
-        queryBuilder.withQuery(QueryBuilders.termQuery("brand","xiaomi"));
+        queryBuilder.withQuery(QueryBuilders.termQuery("brand","小米"));
         Object all = productDao.search(queryBuilder.build());
         return all;
     }
@@ -236,10 +238,11 @@ public class ProductServiceImpl implements ProductService {
         return all;
     }
 
-    public Object matchQueryByTitle(String name) {
+    public Object matchQueryByTitle(String name)  {
         // matchQuery 只要包含字符串就匹配出来
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        queryBuilder.withQuery(QueryBuilders.matchQuery("title",name));
+		queryBuilder.withQuery(QueryBuilders.matchQuery("title",name));
+
         Object items = productDao.search(queryBuilder.build());
         return items;
     }

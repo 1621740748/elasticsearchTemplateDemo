@@ -101,9 +101,9 @@ public class ProductController {
     }
 
     @RequestMapping("/queryByTerm")
-    public Object queryByTerm() {
+    public Object queryByTerm(String name) {
         //单字段严格匹配
-        Object all = productService.queryByTerm("brand","xiaomi");
+        Object all = productService.queryByTerm("brand",name);
         return all;
     }
 
