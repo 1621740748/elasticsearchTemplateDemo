@@ -62,8 +62,9 @@ public class ProductServiceImpl implements ProductService {
     public Object queryByTerm(String key,String value) {
         //字段严格匹配
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        //queryBuilder.withQuery(QueryBuilders.termQuery("price",4199));
-        queryBuilder.withQuery(QueryBuilders.termQuery(key,value));
+       // queryBuilder.withQuery(QueryBuilders.termQuery("price",4199));
+       // queryBuilder.withQuery(QueryBuilders.termQuery(key,value));
+        queryBuilder.withQuery(QueryBuilders.termQuery("brand","xiaomi"));
         Object all = productDao.search(queryBuilder.build());
         return all;
     }

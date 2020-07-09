@@ -55,6 +55,8 @@ public class ProductController {
         list.add(new Product(9L, "小米Mix2S", "手机", "小米", 41299.00, "http://image.baidu.com/13123.jpg"));
         list.add(new Product(10L, "荣耀V10", "手机", "华为", 12799.00, "http://image.baidu.com/13123.jpg"));
         list.add(new Product(11L, "荣耀V10", "手机", "华为", 1279.00, "http://image.baidu.com/13123.jpg"));
+        list.add(new Product(12L, "荣耀V10", "手机", "xiaomi", 1279.00, "http://image.baidu.com/13123.jpg"));
+        list.add(new Product(13L, "荣耀V10", "手机", "huawei", 1279.00, "http://image.baidu.com/13123.jpg"));
 // 接收对象集合，实现批量新增
         productService.insertList(list);
     }
@@ -77,11 +79,11 @@ public class ProductController {
         return all;
     }
 
-    @RequestMapping("/queryMultiColumns")
-    public Object queryMultiColumns() {
-        Object all = productService.queryMultiColumns();
-        return all;
-    }
+//    @RequestMapping("/queryMultiColumns")
+//    public Object queryMultiColumns() {
+//        Object all = productService.queryMultiColumns();
+//        return all;
+//    }
 
     @RequestMapping("/queryMultiAggregation")
     public Object queryMultiAggregation() {
@@ -101,7 +103,7 @@ public class ProductController {
     @RequestMapping("/queryByTerm")
     public Object queryByTerm() {
         //单字段严格匹配
-        Object all = productService.queryByTerm("brand","小米");
+        Object all = productService.queryByTerm("brand","xiaomi");
         return all;
     }
 
