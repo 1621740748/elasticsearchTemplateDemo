@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -32,6 +34,9 @@ public class Product {
     @Field(index = false, type = FieldType.Keyword)
     private String images; // 图片地址
 
+    @Field(type = FieldType.Keyword)
+    private List<String>tags;
+    
     public Long getId() {
         return id;
     }
@@ -80,13 +85,22 @@ public class Product {
         this.images = images;
     }
 
-    public Product(Long id, String title, String category, String brand, Double price, String images) {
+    public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public Product(Long id, String title, String category, String brand, Double price, String images,List<String>tags) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.brand = brand;
         this.price = price;
         this.images = images;
+        this.tags=tags;
     }
 
     public Product() {

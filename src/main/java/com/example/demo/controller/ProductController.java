@@ -36,27 +36,36 @@ public class ProductController {
 
     @RequestMapping("/insertOne")
     public void insertOne() {
+        List<String> tag1=new ArrayList<>();
+        tag1.add("小米");
+        tag1.add("手机");
         Product product = new Product(15L,"小米手表15", "手表",
-                "小米", 8499.00, "http://image.baidu.com/13123.jpg");
+                "小米", 8499.00, "http://image.baidu.com/13123.jpg",tag1);
         productService.insertOne(product);
     }
 
     @RequestMapping("/insertAll")
     public void insertAll() {
         ArrayList<Product> list = new ArrayList<>();
-        list.add(new Product(1L, "小米手机6", "手机", "小米", 1299.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(2L, "小米手机7", "手机", "小米", 3299.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(3L, "坚果手机R1", "手机", "锤子", 3699.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(4L, "华为META10", "手机", "华为", 4199.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(5L, "小米Mix2S", "手机", "小米", 4199.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(6L, "小米手机7", "手机", "小米", 3219.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(7L, "坚果手机R1", "手机", "锤子", 13699.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(8L, "华为META10", "手机", "华为", 41499.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(9L, "小米Mix2S", "手机", "小米", 41299.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(10L, "荣耀V10", "手机", "华为", 12799.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(11L, "荣耀V10", "手机", "华为", 1279.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(12L, "荣耀V10", "手机", "xiaomi", 1279.00, "http://image.baidu.com/13123.jpg"));
-        list.add(new Product(13L, "荣耀V10", "手机", "huawei", 1279.00, "http://image.baidu.com/13123.jpg"));
+        List<String> tag1=new ArrayList<>();
+        List<String> tag2=new ArrayList<>();
+        tag1.add("小米");
+        tag1.add("手机");
+        tag2.add("华为");
+        tag2.add("手机");
+        list.add(new Product(1L, "小米手机6", "手机", "小米", 1299.00, "http://image.baidu.com/13123.jpg",tag1));
+        list.add(new Product(2L, "小米手机7", "手机", "小米", 3299.00, "http://image.baidu.com/13123.jpg",tag1));
+        list.add(new Product(3L, "坚果手机R1", "手机", "锤子", 3699.00, "http://image.baidu.com/13123.jpg",tag1));
+        list.add(new Product(4L, "华为META10", "手机", "华为", 4199.00, "http://image.baidu.com/13123.jpg",tag1));
+        list.add(new Product(5L, "小米Mix2S", "手机", "小米", 4199.00, "http://image.baidu.com/13123.jpg",tag1));
+        list.add(new Product(6L, "小米手机7", "手机", "小米", 3219.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(7L, "坚果手机R1", "手机", "锤子", 13699.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(8L, "华为META10", "手机", "华为", 41499.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(9L, "小米Mix2S", "手机", "小米", 41299.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(10L, "荣耀V10", "手机", "华为", 12799.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(11L, "荣耀V10", "手机", "华为", 1279.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(12L, "荣耀V10", "手机", "xiaomi", 1279.00, "http://image.baidu.com/13123.jpg",tag2));
+        list.add(new Product(13L, "荣耀V10", "手机", "huawei", 1279.00, "http://image.baidu.com/13123.jpg",tag2));
 // 接收对象集合，实现批量新增
         productService.insertList(list);
     }
