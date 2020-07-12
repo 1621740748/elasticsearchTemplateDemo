@@ -67,7 +67,16 @@ public class ProductServiceImpl implements ProductService {
         Object all = productDao.search(queryBuilder.build());
         return all;
     }
-
+    //单字段匹配
+    public Object queryTags(String key,String value) {
+        //字段严格匹配
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+       // queryBuilder.withQuery(QueryBuilders.termQuery("price",4199));
+       // queryBuilder.withQuery(QueryBuilders.termQuery(key,value));
+        queryBuilder.withQuery(QueryBuilders.termQuery(key,value));
+        Object all = productDao.search(queryBuilder.build());
+        return all;
+    }
     public Object queryAggregation(){
         //字段严格匹配
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();

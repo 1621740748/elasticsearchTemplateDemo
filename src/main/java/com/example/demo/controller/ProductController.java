@@ -113,6 +113,12 @@ public class ProductController {
         Object all = productService.queryByTerm("brand",name);
         return all;
     }
+    @RequestMapping("/queryTags")
+    public Object queryTags(String name) {
+        //单字段严格匹配
+        Object all = productService.queryTags("tags",name);
+        return all;
+    }
 
 
     @RequestMapping("/queryMultiTerm")

@@ -19,6 +19,8 @@ public interface ProductService {
 
     Object queryByTerm(String key,String value);
 
+    Object queryTags(String key,String value);
+    
     Object queryAggregation();
 
 	/* Object querySubAggregation(); */
