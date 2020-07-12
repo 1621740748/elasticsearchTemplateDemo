@@ -73,12 +73,10 @@ public class ProductController {
         return all;
     }
 
-    @RequestMapping("/querySubAggregation")
-    public Object querySubAggregation() {
-        Object all = productService.querySubAggregation();
-        return all;
-    }
-
+	/*
+	 * @RequestMapping("/querySubAggregation") public Object querySubAggregation() {
+	 * Object all = productService.querySubAggregation(); return all; }
+	 */
 //    @RequestMapping("/queryMultiColumns")
 //    public Object queryMultiColumns() {
 //        Object all = productService.queryMultiColumns();

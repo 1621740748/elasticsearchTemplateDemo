@@ -1,30 +1,27 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.ProductDao;
-import com.example.demo.entity.Product;
-import com.example.demo.service.ProductService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
-import org.elasticsearch.search.aggregations.metrics.avg.AvgAggregationBuilder;
-import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
-import org.elasticsearch.search.aggregations.metrics.sum.SumAggregationBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.*;
+import com.example.demo.dao.ProductDao;
+import com.example.demo.entity.Product;
+import com.example.demo.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -109,43 +106,33 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-    public Object querySubAggregation(){
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        // 不查询任何结果
-        queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{""}, null));
-        // 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand
-        queryBuilder.addAggregation(
-                AggregationBuilders.terms("brands").field("brand")
-                        .subAggregation(AggregationBuilders.avg("priceAvg").field("price")) // 在品牌聚合桶内进行嵌套聚合，求平均值
-        );
-        // 2、查询,需要把结果强转为AggregatedPage类型
-        AggregatedPage<Product> aggPage = (AggregatedPage<Product>) this.productDao.search(queryBuilder.build());
-
-        // 3、解析
-        // 3.1、从结果中取出名为brands的那个聚合，
-        // 因为是利用String类型字段来进行的term聚合，所以结果要强转为StringTerm类型
-        StringTerms agg = (StringTerms) aggPage.getAggregation("brands");
-        // 3.2、获取桶
-        List<StringTerms.Bucket> buckets = agg.getBuckets();
-        // 3.3、遍历
-        List<Map<String,String>> listMap = new ArrayList<>();
-        for (StringTerms.Bucket bucket : buckets) {
-            // 3.4、获取桶中的key，即品牌名称  3.5、获取桶中的文档数量
-            System.out.println(bucket.getKeyAsString() + "，共" + bucket.getDocCount() + "台");
-            // 3.6.获取子聚合结果：
-            InternalAvg avg = (InternalAvg) bucket.getAggregations().asMap().get("priceAvg");
-            System.out.println("平均售价：" + avg.getValue());
-            Map<String,String> map = new HashMap<>();
-            map.put("品牌",bucket.getKeyAsString());
-            Long tai = bucket.getDocCount();
-            map.put("台数",tai.toString());
-            double value = avg.getValue();
-            map.put("均价",Double.toString(value));
-            listMap.add(map);
-        }
-        return listMap;
-
-    }
+	/*
+	 * public Object querySubAggregation(){ NativeSearchQueryBuilder queryBuilder =
+	 * new NativeSearchQueryBuilder(); // 不查询任何结果 queryBuilder.withSourceFilter(new
+	 * FetchSourceFilter(new String[]{""}, null)); //
+	 * 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand queryBuilder.addAggregation(
+	 * AggregationBuilders.terms("brands").field("brand")
+	 * .subAggregation(AggregationBuilders.avg("priceAvg").field("price")) //
+	 * 在品牌聚合桶内进行嵌套聚合，求平均值 ); // 2、查询,需要把结果强转为AggregatedPage类型
+	 * AggregatedPage<Product> aggPage = (AggregatedPage<Product>)
+	 * this.productDao.search(queryBuilder.build());
+	 * 
+	 * // 3、解析 // 3.1、从结果中取出名为brands的那个聚合， //
+	 * 因为是利用String类型字段来进行的term聚合，所以结果要强转为StringTerm类型 StringTerms agg =
+	 * (StringTerms) aggPage.getAggregation("brands"); // 3.2、获取桶
+	 * List<StringTerms.Bucket> buckets = agg.getBuckets(); // 3.3、遍历
+	 * List<Map<String,String>> listMap = new ArrayList<>(); for (StringTerms.Bucket
+	 * bucket : buckets) { // 3.4、获取桶中的key，即品牌名称 3.5、获取桶中的文档数量
+	 * System.out.println(bucket.getKeyAsString() + "，共" + bucket.getDocCount() +
+	 * "台"); // 3.6.获取子聚合结果： InternalAvg avg = (InternalAvg)
+	 * bucket.getAggregations().asMap().get("priceAvg"); System.out.println("平均售价："
+	 * + avg.getValue()); Map<String,String> map = new HashMap<>();
+	 * map.put("品牌",bucket.getKeyAsString()); Long tai = bucket.getDocCount();
+	 * map.put("台数",tai.toString()); double value = avg.getValue();
+	 * map.put("均价",Double.toString(value)); listMap.add(map); } return listMap;
+	 * 
+	 * }
+	 */
 
     public Object queryMultiAggregation(){
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();

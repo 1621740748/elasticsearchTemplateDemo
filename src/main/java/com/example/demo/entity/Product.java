@@ -5,7 +5,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "product",type = "docs", shards = 1, replicas = 0)
+@Document(indexName = "product", shards = 1, replicas = 0)
 public class Product {
 
     /**
@@ -16,7 +16,8 @@ public class Product {
     @Id
     private Long id;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+//    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @Field(type = FieldType.Text)
     private String title; // 标题
 
     @Field(type = FieldType.Keyword)

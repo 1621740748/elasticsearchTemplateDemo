@@ -21,7 +21,7 @@ public interface ProductService {
 
     Object queryAggregation();
 
-    Object querySubAggregation();
+	/* Object querySubAggregation(); */
 
     Object queryMultiAggregation();
 
